@@ -1,0 +1,27 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLambdaLogging",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:us-west-1:560205084952:log-group:/aws/lambda/backup-notifier:*"
+    },
+    {
+      "Sid": "AllowReadStatusMarker",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject"],
+      "Resource": "arn:aws:s3:::serverless-backup-project-560205084952/status/*"
+    },
+    {
+      "Sid": "AllowReadSlackWebhookSecret",
+      "Effect": "Allow",
+      "Action": ["secretsmanager:GetSecretValue"],
+      "Resource": "arn:aws:secretsmanager:us-west-1:560205084952:secret:backup-notifier/slack-webhook-*"
+    }
+  ]
+}
