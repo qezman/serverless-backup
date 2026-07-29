@@ -98,5 +98,9 @@ resource "aws_secretsmanager_secret_version" "slack_webhook" {
 }
 
 module "networking" {
-  source = "./modules/networking"
+  source                    = "./modules/networking"
+  vpc_cidr_block             = var.vpc_cidr_block
+  vpc_name                   = var.vpc_name
+  public_subnet_cidr_block   = var.public_subnet_cidr_block
+  availability_zone          = var.availability_zone
 }
