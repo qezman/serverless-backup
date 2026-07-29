@@ -45,10 +45,10 @@ resource "aws_s3_bucket_public_access_block" "backups" {
 # Moves backup objects to Glacier after 30 days to cut storage cost,
 # and deletes them entirely after 365 days
 resource "aws_s3_bucket_lifecycle_configuration" "backups" {
-  bucket                  = aws_s3_bucket.backups.id
+  bucket = aws_s3_bucket.backups.id
 
   rule {
-    id = "archive-old-backups"
+    id     = "archive-old-backups"
     status = "Enabled"
 
     filter {
@@ -95,4 +95,8 @@ resource "aws_secretsmanager_secret" "slack_webhook" {
 resource "aws_secretsmanager_secret_version" "slack_webhook" {
   secret_id     = aws_secretsmanager_secret.slack_webhook.id
   secret_string = "https://hooks.slack.com/services/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"
+}
+
+module "networking" {
+  source = "./modules/networking"
 }
