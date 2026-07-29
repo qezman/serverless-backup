@@ -74,3 +74,25 @@ resource "aws_s3_bucket_lifecycle_configuration" "backups" {
     }
   }
 }
+
+# email subscribers get notified on any publish
+resource "aws_sns_topic" "backup_notifications" {
+  name = "backup-notifications"
+}
+
+resource "aws_sns_topic_subscription" "email" {
+  topic_arn = aws_sns_topic.backup_notifications.arn
+  protocol  = "email"
+  endpoint  = "contactqossim@gmail.com"
+}
+
+
+# Holds the Slack webhook URL
+resource "aws_secretsmanager_secret" "slack_webhook" {
+  name = "backup-notifier/slack-webhook"
+}
+
+resource "aws_secretsmanager_secret_version" "slack_webhook" {
+  secret_id     = aws_secretsmanager_secret.slack_webhook.id
+  secret_string = "https://hooks.slack.com/services/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"
+}
