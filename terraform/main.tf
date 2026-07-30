@@ -20,3 +20,18 @@ module "networking" {
   availability_zone        = var.availability_zone
   admin_ip                 = var.admin_ip
 }
+
+module "compute" {
+  source                = "./modules/compute"
+  vpc_name              = var.vpc_name
+  public_key_path       = var.public_key_path
+  subnet_id             = module.networking.public_subnet_id
+  security_group_id     = module.networking.ec2_sg_id
+  instance_profile_name = module.iam.instance_profile_name
+}
+
+module "iam" {
+  source              = "./modules/iam"
+  vpc_name            = var.vpc_name
+  backups_bucket_name = var.backups_bucket_name
+}

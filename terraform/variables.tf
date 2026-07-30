@@ -57,3 +57,9 @@ variable "admin_ip" {
   description = "Admin's public IP, allowed to SSH into the EC2 instance"
   type        = string
 }
+
+variable "public_key_path" {
+  description = "Path to the local SSH public key file"
+  type        = string
+  default     = "~/.ssh/project3-ec2-key.pub"
+}
