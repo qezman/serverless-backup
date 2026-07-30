@@ -1,0 +1,20 @@
+---
+# Playbook: provisions the EC2 instance for Project 3.
+# Targets the "backup_db" group defined in inventory.ini.
+- name: Provision backup database instance
+  hosts: backup_db          # run against every host in the backup_db group
+  become: true               # run tasks as root (sudo), needed for package installs
+
+  tasks:
+    # Refresh the package index before installing anything
+    - name: Update apt package cache
+      apt:
+        update_cache: true
+
+    # Installs PostgreSQL server and client tools.
+    - name: Install PostgreSQL
+      apt:
+        name:
+          - postgresql
+          - postgresql-contrib
+        state: present       # "make sure this is installed," not "always reinstall"
