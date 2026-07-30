@@ -18,4 +18,5 @@ module "networking" {
   vpc_name                 = var.vpc_name
   public_subnet_cidr_block = var.public_subnet_cidr_block
   availability_zone        = var.availability_zone
+  admin_ip                 = var.admin_ip
 }

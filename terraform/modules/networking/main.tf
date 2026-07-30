@@ -44,3 +44,29 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
 }
+
+resource "aws_security_group" "ec2_backup" {
+  name        = "${var.vpc_name}-ec2-sg"
+  description = "Allow SSH from admin IP only, all outbound allowed"
+  vpc_id      = aws_vpc.project3.id
+
+  ingress {
+    description = "SSH from admin IP"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.admin_ip}/32"] // admin IP only
+  }
+
+  egress {
+    description = "Allow all outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"          # all protocols
+    cidr_blocks = ["0.0.0.0/0"] # needed: S3 uploads, Slack webhook, apt/yum updates
+  }
+
+  tags = {
+    Name = "${var.vpc_name}-ec2-sg"
+  }
+}

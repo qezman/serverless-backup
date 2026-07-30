@@ -17,3 +17,8 @@ variable "availability_zone" {
   description = "AZ to place the public subnet in"
   type        = string
 }
+
+variable "admin_ip" {
+  description = "Admin's public IP, allowed to SSH into the EC2 instance"
+  type        = string
+}

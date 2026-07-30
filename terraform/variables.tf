@@ -52,3 +52,8 @@ variable "availability_zone" {
   type        = string
   default     = "us-west-1a"
 }
+
+variable "admin_ip" {
+  description = "Admin's public IP, allowed to SSH into the EC2 instance"
+  type        = string
+}
