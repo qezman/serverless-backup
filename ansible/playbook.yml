@@ -2,8 +2,10 @@
 # Playbook: provisions the EC2 instance for Project 3.
 # Targets the "backup_db" group defined in inventory.ini.
 - name: Provision backup database instance
-  hosts: backup_db          # run against every host in the backup_db group
-  become: true               # run tasks as root (sudo), needed for package installs
+  hosts: backup_db # run against every host in the backup_db group
+  become: true # run tasks as root (sudo), needed for package installs
+  vars_files:
+    - vars/secrets.yml
 
   tasks:
     # Refresh the package index before installing anything
@@ -17,4 +19,34 @@
         name:
           - postgresql
           - postgresql-contrib
-        state: present       # "make sure this is installed," not "always reinstall"
+        state: present # "make sure this is installed," not "always reinstall"
+
+    - name: Install Python Postgres adapter (required by Ansible Postgres modules)
+      apt:
+        name: python3-psycopg2
+        state: present
+
+    - name: Create dummy application database
+      become_user: postgres # Postgres administrative commands must run as the "postgres" Linux/DB user
+      postgresql_db:
+        name: insureflow_placeholder # placeholder name - rename if you'd like something else
+        state: present
+
+    # Creates the role/login itself
+    - name: Create dedicated backup role
+      become_user: postgres
+      postgresql_user:
+        name: backup_user
+        password: "{{ backup_db_password }}" # comes from a variable, not hardcoded
+        db: insureflow_placeholder
+        state: present
+
+    # Grant backup role full privileges on dummy database
+    - name: Grant backup role full privileges on dummy database
+      become_user: postgres
+      postgresql_privs:
+        database: insureflow_placeholder 
+        roles: backup_user
+        type: database
+        privs: ALL
+        state: present
