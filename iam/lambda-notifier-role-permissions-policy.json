@@ -9,19 +9,19 @@
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": "arn:aws:logs:us-west-1:560205084952:log-group:/aws/lambda/backup-notifier:*"
+      "Resource": "arn:aws:logs:us-west-1:203637463799:log-group:/aws/lambda/backup-notifier:*"
     },
     {
       "Sid": "AllowReadStatusMarker",
       "Effect": "Allow",
       "Action": ["s3:GetObject"],
-      "Resource": "arn:aws:s3:::serverless-backup-project-560205084952/status/*"
+      "Resource": "arn:aws:s3:::serverless-backup-project-203637463799/status/*"
     },
     {
       "Sid": "AllowReadSlackWebhookSecret",
       "Effect": "Allow",
       "Action": ["secretsmanager:GetSecretValue"],
-      "Resource": "arn:aws:secretsmanager:us-west-1:560205084952:secret:backup-notifier/slack-webhook-*"
+      "Resource": "arn:aws:secretsmanager:us-west-1:203637463799:secret:backup-notifier/slack-webhook-*"
     }
   ]
 }

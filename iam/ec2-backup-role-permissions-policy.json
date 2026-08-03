@@ -6,8 +6,8 @@
       "Effect": "Allow",
       "Action": ["s3:PutObject"],
       "Resource": [
-        "arn:aws:s3:::serverless-backup-project-560205084952/backups/*",
-        "arn:aws:s3:::serverless-backup-project-560205084952/status/*"
+        "arn:aws:s3:::serverless-backup-project-203637463799/backups/*",
+        "arn:aws:s3:::serverless-backup-project-203637463799/status/*"
       ]
     },
     {
@@ -15,8 +15,8 @@
       "Effect": "Deny",
       "Action": "s3:*",
       "Resource": [
-        "arn:aws:s3:::serverless-backup-project-560205084952",
-        "arn:aws:s3:::serverless-backup-project-560205084952/*"
+        "arn:aws:s3:::serverless-backup-project-203637463799",
+        "arn:aws:s3:::serverless-backup-project-203637463799/*"
       ],
       "Condition": {
         "Bool": {

@@ -7,15 +7,15 @@ terraform {
   }
 
   backend "s3" {
-    bucket       = "serverless-backup-project-560205084952" # tf_state bucket name
+    bucket       = "serverless-backup-project-203637463799" # tf_state bucket name
     key          = "project3/terraform.tfstate"             # path inside the bucket
-    region       = "us-west-1"
+    region       = "us-east-1"
     use_lockfile = true
     profile      = "project3"
   }
 }
 
 provider "aws" {
-  region  = "us-west-1"
+  region  = "us-east-1"
   profile = "project3"
 }

@@ -7,8 +7,8 @@
       "Principal": "*",
       "Action": "s3:*",
       "Resource": [
-        "arn:aws:s3:::serverless-backup-project-560205084952",
-        "arn:aws:s3:::serverless-backup-project-560205084952/*"
+        "arn:aws:s3:::serverless-backup-project-203637463799",
+        "arn:aws:s3:::serverless-backup-project-203637463799/*"
       ],
       "Condition": {
         "Bool": { "aws:SecureTransport": "false" }
@@ -19,7 +19,7 @@
       "Effect": "Deny",
       "Principal": "*",
       "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::serverless-backup-project-560205084952/*",
+      "Resource": "arn:aws:s3:::serverless-backup-project-203637463799/*",
       "Condition": {
         "StringNotEquals": {
           "s3:x-amz-server-side-encryption": "AES256"
