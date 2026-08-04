@@ -35,3 +35,8 @@ module "iam" {
   vpc_name            = var.vpc_name
   backups_bucket_name = var.backups_bucket_name
 }
+
+module "lambda" {
+  source   = "./modules/lambda"
+  vpc_name = var.vpc_name
+}
