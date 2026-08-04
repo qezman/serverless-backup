@@ -74,3 +74,10 @@ resource "aws_s3_bucket_versioning" "tf_state" {
     status = "Enabled" # keeps history of state files, lets recover from a bad apply
   }
 }
+
+resource "aws_s3_bucket_policy" "backups" {
+  bucket = aws_s3_bucket.backups.id
+  policy = templatefile("${path.module}/../../../iam/s3-bucket-policy.json.tpl", {
+    bucket_name = var.backups_bucket_name
+  })
+}
