@@ -81,3 +81,15 @@ resource "aws_s3_bucket_policy" "backups" {
     bucket_name = var.backups_bucket_name
   })
 }
+
+resource "aws_s3_bucket_notification" "trigger_notifier" {
+  bucket = aws_s3_bucket.backups.id
+
+  lambda_function {
+    lambda_function_arn = var.lambda_function_arn
+    events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = "status/"   # only status markers trigger Lambda, not the backup files themselves
+  }
+
+  depends_on = [var.lambda_permission_dependency]
+}

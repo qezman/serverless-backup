@@ -28,3 +28,8 @@ variable "slack_secret_arn" {
   description = "ARN of the Secrets Manager secret holding the Slack webhook URL"
   type        = string
 }
+
+variable "backups_bucket_arn" {
+  description = "ARN of the backups bucket, scopes which bucket can invoke this Lambda"
+  type = string
+}

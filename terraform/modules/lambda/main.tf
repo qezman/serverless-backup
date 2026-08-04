@@ -36,3 +36,12 @@ resource "aws_lambda_function" "notifier" {
     }
   }
 }
+
+# Grants S3 permission to invoke this specific Lambda function
+resource "aws_lambda_permission" "allow_s3" {
+  statement_id  = "AllowS3Invoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.notifier.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = var.backups_bucket_arn
+}
