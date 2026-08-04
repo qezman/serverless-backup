@@ -50,6 +50,9 @@ mkdir -p "$BACKUP_DIR"
 
 # Authenticate to Postgres
 export PGPASSWORD="${DB_BACKUP_PASSWORD}"
+source /home/ubuntu/.backup_env
+# Load DB_BACKUP_PASSWORD from the environment file Ansible deployed
+
 
 # Dump the database
 pg_dump -h localhost -U "$DB_USER" -d "$DB_NAME" -F p -f "$DUMP_FILE"

@@ -45,8 +45,34 @@
     - name: Grant backup role full privileges on dummy database
       become_user: postgres
       postgresql_privs:
-        database: insureflow_placeholder 
+        database: insureflow_placeholder
         roles: backup_user
         type: database
         privs: ALL
         state: present
+
+    - name: Deploy environment file with backup credentials
+      copy:
+        dest: /home/ubuntu/./backup_env
+        content: |
+          DB_BACKUP_PASSWORD="{{ backup_db_password }}"
+        owner: ubuntu
+        group: ubuntu
+        mode: "0600" # read/write for the owner only
+
+    - name: Deploy backup script
+      copy:
+        src: ../scripts/backup.sh # path relative to the playbook
+        dest: /home/ubuntu/backup.sh
+        owner: ubuntu
+        group: ubuntu
+        mode: "0700" # executable, owner-only
+
+    - name: Schedule nightly backup via cron
+      cron:
+        name: "Run database backup"
+        # Runs daily at 2:00 AM server time
+        minute: "0"
+        hour: "2"
+        job: "/home/ubuntu/backup.sh >> /home/ubuntu/backup.log 2>&1"
+        user: ubuntu
