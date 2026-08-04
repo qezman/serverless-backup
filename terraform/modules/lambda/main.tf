@@ -12,3 +12,27 @@ resource "aws_iam_role_policy" "notifier" {
         bucket_name = var.bucket_name
       })
 }
+
+# Zips the Python source into a deployable package.
+data "archive_file" "notifier_zip" {
+  type = "zip"
+  source_dir = "${path.module}/../../lambda_src"
+  output_path = "${path.module}/../../notifier.zip"
+}
+
+resource "aws_lambda_function" "notifier" {
+  function_name = "backup-notifier"
+  role = aws_iam_role.notifier.arn
+  handler = "notifier.handler"
+  runtime = "python3.12" 
+  filename         = data.archive_file.notifier_zip.output_path
+  source_code_hash = data.archive_file.notifier_zip.output_base64sha256
+  timeout          = 30
+
+  environment {
+    variables = {
+      SNS_TOPIC_ARN = var.sns_topic_arn
+      SLACK_SECRET_ARN = var.slack_secret_arn
+    }
+  }
+}

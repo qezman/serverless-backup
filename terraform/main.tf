@@ -39,9 +39,11 @@ module "iam" {
 }
 
 module "lambda" {
-  source      = "./modules/lambda"
-  vpc_name    = var.vpc_name
-  region      = var.region
-  account_id  = data.aws_caller_identity.current.account_id
-  bucket_name = var.backups_bucket_name
+  source           = "./modules/lambda"
+  vpc_name         = var.vpc_name
+  region           = var.region
+  account_id       = data.aws_caller_identity.current.account_id
+  bucket_name      = var.backups_bucket_name
+  sns_topic_arn    = module.notifications.sns_topic_arn
+  slack_secret_arn = module.notifications.slack_secret_arn
 }
