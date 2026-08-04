@@ -63,3 +63,9 @@ variable "public_key_path" {
   type        = string
   default     = "~/.ssh/project3-ec2-key.pub"
 }
+
+variable "region" {
+  description = "AWS region resources are deployed in"
+  type        = string
+  default     = "us-east-1"
+}
