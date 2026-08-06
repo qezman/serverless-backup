@@ -13,6 +13,13 @@
       apt:
         update_cache: true
 
+    - name: Install AWS CLI and PostgreSQL client tools
+      apt:
+        name:
+          - awscli
+          - postgresql-client-common
+        state: present
+
     # Installs PostgreSQL server and client tools.
     - name: Install PostgreSQL
       apt:
@@ -53,7 +60,7 @@
 
     - name: Deploy environment file with backup credentials
       copy:
-        dest: /home/ubuntu/./backup_env
+        dest: /home/ubuntu/.backup_env
         content: |
           DB_BACKUP_PASSWORD="{{ backup_db_password }}"
         owner: ubuntu

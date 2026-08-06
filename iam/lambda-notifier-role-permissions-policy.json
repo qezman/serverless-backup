@@ -9,7 +9,7 @@
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": "arn:aws:logs:us-west-1:203637463799:log-group:/aws/lambda/backup-notifier:*"
+      "Resource": "arn:aws:logs:us-east-1:203637463799:log-group:/aws/lambda/backup-notifier:*"
     },
     {
       "Sid": "AllowReadStatusMarker",
@@ -21,7 +21,7 @@
       "Sid": "AllowReadSlackWebhookSecret",
       "Effect": "Allow",
       "Action": ["secretsmanager:GetSecretValue"],
-      "Resource": "arn:aws:secretsmanager:us-west-1:203637463799:secret:backup-notifier/slack-webhook-*"
+      "Resource": "arn:aws:secretsmanager:us-east-1:203637463799:secret:backup-notifier/slack-webhook-*"
     }
   ]
 }

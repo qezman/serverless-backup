@@ -14,7 +14,7 @@ DB_USER="backup_user"
 BACKUP_DIR="/home/ubuntu/backups"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 DUMP_FILE="${BACKUP_DIR}/${DB_NAME}-${TIMESTAMP}.sql"
-GPG_RECIPIENT="033F6CCC64777FB8B66229C76A3C642F1C277914"
+GPG_RECIPIENT="78528CC43E45E09A3371972D2B0821FA697907F0"
 S3_BUCKET="serverless-kazeem-db-backups-203637463799"
 
 # These get set later in the script, once each step actually runs
@@ -49,8 +49,8 @@ trap cleanup_and_report EXIT
 mkdir -p "$BACKUP_DIR"
 
 # Authenticate to Postgres
-export PGPASSWORD="${DB_BACKUP_PASSWORD}"
 source /home/ubuntu/.backup_env
+export PGPASSWORD="${DB_BACKUP_PASSWORD}"
 # Load DB_BACKUP_PASSWORD from the environment file Ansible deployed
 
 
