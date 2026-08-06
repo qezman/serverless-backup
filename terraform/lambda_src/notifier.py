@@ -13,7 +13,7 @@ secrets = boto3.client("secretsmanager")
 
 def handler(event, context):
     # S3 triggers this with an event containing the bucket/key that changed
-    record = event["Record"][0]
+    record = event["Records"][0]
     bucket = record["s3"]["bucket"]["name"]
     key = record["s3"]["object"]["key"]
 
