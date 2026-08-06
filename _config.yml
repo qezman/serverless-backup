@@ -1,0 +1,5 @@
+title: Serverless Backup & Notification Pipeline
+description: Automated, encrypted PostgreSQL backups on AWS with Terraform, Ansible, and event-driven alerting.
+theme: jekyll-theme-minimal
+markdown: kramdown
+show_downloads: false
